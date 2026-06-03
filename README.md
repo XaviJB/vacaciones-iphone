@@ -25,6 +25,20 @@ Agenda visual para planificar vacaciones por días y horas, pensada para iPhone.
 - En el otro dispositivo, abre la app y pulsa cargar viaje.
 - Al elegir el JSON, se cargan automáticamente fechas, tarjetas, horas, duraciones, colores, reservas y maleta.
 
+## Mover tarjetas
+
+- Desplázate por el planning con normalidad: las tarjetas ya no se arrastran por accidente.
+- Mantén pulsada una tarjeta un momento para entrar en modo edición.
+- Cuando empiece el movimiento suave, arrástrala a otro día u otra hora y suéltala.
+- Si mantienes pulsado sin moverla, se abre la edición de la nota.
+
+## Reservas y justificantes
+
+- En `Referencia` puedes guardar el localizador o código de reserva.
+- En `Correo / enlace` puedes pegar un enlace a Gmail, iCloud, Drive, Dropbox o la web del hotel.
+- En `PDF o correo` puedes adjuntar un PDF, imagen o archivo de correo pequeño para llevarlo dentro del viaje.
+- El JSON exportado incluye esos datos para pasarlos al iPhone u ordenador.
+
 ## Siguiente nivel
 
 - La agenda se desplaza por días completos.
