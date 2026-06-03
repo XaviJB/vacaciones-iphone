@@ -2,8 +2,17 @@
   "name": "Planificador de Vacaciones",
   "short_name": "Vacaciones",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f9efe7",
   "theme_color": "#f9efe7",
-  "icons": []
+  "categories": ["productivity", "travel"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
