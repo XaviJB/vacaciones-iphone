@@ -1,0 +1,34 @@
+.event-card {
+  touch-action: pan-x pan-y;
+}
+
+.event-card.is-pressing {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: -4px;
+  box-shadow: 0 14px 26px rgba(84, 63, 73, 0.2);
+}
+
+body.card-edit-mode .event-card {
+  animation: vacation-jiggle 190ms ease-in-out infinite alternate;
+}
+
+.event-card.is-dragging {
+  touch-action: none;
+  animation: none;
+}
+
+@keyframes vacation-jiggle {
+  from {
+    transform: rotate(-0.65deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(0.65deg) translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.card-edit-mode .event-card {
+    animation: none;
+  }
+}
