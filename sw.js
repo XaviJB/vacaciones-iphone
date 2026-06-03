@@ -1,12 +1,14 @@
-const CACHE_NAME = "vacaciones-iphone-v6";
+const CACHE_NAME = "vacaciones-iphone-v7";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css?v=4",
   "./next.css?v=4",
   "./hotfix-v6.css?v=6",
+  "./hotfix-v7.css?v=7",
   "./app-next.js?v=4",
   "./hotfix-v6.js?v=6",
+  "./hotfix-v7.js?v=7",
   "./manifest.webmanifest",
   "./icon.svg"
 ];
