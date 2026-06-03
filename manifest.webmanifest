@@ -1,0 +1,9 @@
+{
+  "name": "Planificador de Vacaciones",
+  "short_name": "Vacaciones",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f9efe7",
+  "theme_color": "#f9efe7",
+  "icons": []
+}
