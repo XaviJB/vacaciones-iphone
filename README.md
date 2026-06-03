@@ -18,4 +18,11 @@ Agenda visual para planificar vacaciones por días y horas, pensada para iPhone.
 3. Elige Añadir a pantalla de inicio.
 4. Confirma con Añadir.
 
-La app guarda tus notas en el navegador del iPhone usando almacenamiento local.
+## Pasar tus vacaciones entre iPhone y ordenador
+
+- Pulsa el botón de guardar viaje para descargar un `.json`.
+- Manda ese archivo por AirDrop, iCloud Drive, email o WhatsApp.
+- En el otro dispositivo, abre la app y pulsa cargar viaje.
+- Al elegir el JSON, se cargan automáticamente fechas, tarjetas, horas, duraciones y colores.
+
+La app guarda tus notas en el navegador usando almacenamiento local. El archivo JSON sirve como copia portable.
