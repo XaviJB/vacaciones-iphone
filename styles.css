@@ -14,7 +14,7 @@
   --shadow: 0 18px 42px rgba(84, 63, 73, 0.16);
   --hour-height: 66px;
   --time-width: 48px;
-  --days-visible: 2.12;
+  --day-width: 150px;
 }
 
 * {
@@ -65,7 +65,17 @@ button {
 
 .top-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 8px;
+}
+
+.file-input {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .eyebrow,
@@ -311,7 +321,8 @@ select:focus {
 .calendar-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x proximity;
+  scroll-padding-left: var(--time-width);
+  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.08)),
@@ -334,7 +345,8 @@ select:focus {
 .time-axis {
   position: sticky;
   left: 0;
-  z-index: 5;
+  z-index: 6;
+  width: var(--time-width);
   background: rgba(255, 246, 239, 0.96);
   border-right: 1px solid var(--line);
 }
@@ -355,11 +367,12 @@ select:focus {
 }
 
 .day-column {
-  width: calc((100vw - var(--time-width) - 24px) / var(--days-visible));
-  min-width: 132px;
-  max-width: 238px;
+  width: var(--day-width);
+  min-width: var(--day-width);
+  max-width: var(--day-width);
   border-right: 1px solid var(--line);
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .day-header {
@@ -510,16 +523,12 @@ select:focus {
 }
 
 @media (min-width: 390px) {
-  :root {
-    --days-visible: 2.55;
+  .top-actions {
+    gap: 10px;
   }
 }
 
 @media (min-width: 720px) {
-  :root {
-    --days-visible: 3.25;
-  }
-
   .app-shell {
     width: min(100%, 980px);
     padding-inline: 18px;
@@ -527,6 +536,10 @@ select:focus {
 }
 
 @media (max-width: 360px) {
+  .top-actions {
+    max-width: 92px;
+  }
+
   .control-row {
     grid-template-columns: 1fr;
   }
@@ -536,6 +549,6 @@ select:focus {
   }
 
   .day-column {
-    min-width: 126px;
+    min-width: var(--day-width);
   }
 }
