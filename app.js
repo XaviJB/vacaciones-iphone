@@ -36,6 +36,7 @@ const taskTitle = document.querySelector("#taskTitle");
 const taskDate = document.querySelector("#taskDate");
 const taskStart = document.querySelector("#taskStart");
 const taskColor = document.querySelector("#taskColor");
+const calendarScroll = document.querySelector("#calendarScroll");
 const calendarGrid = document.querySelector("#calendarGrid");
 const dateDialog = document.querySelector("#dateDialog");
 const dateForm = document.querySelector("#dateForm");
@@ -47,6 +48,7 @@ const editTitle = document.querySelector("#editTitle");
 const editDate = document.querySelector("#editDate");
 const editStart = document.querySelector("#editStart");
 const editColor = document.querySelector("#editColor");
+const tripFile = document.querySelector("#tripFile");
 
 fillHourSelect(taskStart);
 fillHourSelect(editStart);
@@ -88,6 +90,22 @@ document.querySelector("#openTaskForm").addEventListener("click", () => {
 
 document.querySelector("#closeTaskForm").addEventListener("click", () => {
   taskDialog.close();
+});
+
+document.querySelector("#exportTrip").addEventListener("click", () => {
+  exportTrip();
+});
+
+document.querySelector("#importTrip").addEventListener("click", () => {
+  tripFile.click();
+});
+
+tripFile.addEventListener("change", () => {
+  importTripFile(tripFile.files?.[0]);
+});
+
+window.addEventListener("resize", () => {
+  setCalendarSizing();
 });
 
 dateForm.addEventListener("submit", (event) => {
@@ -160,6 +178,9 @@ function loadState() {
 function normalizeTask(task) {
   return {
     ...task,
+    id: task.id || makeId(),
+    date: String(task.date || ""),
+    start: Number(task.start) || DAY_START,
     duration: Number(task.duration) || 1,
     color: task.color || legacyColors[task.mood] || randomColor()
   };
@@ -169,6 +190,66 @@ function createEmptyState() {
   return {
     range: { start: "", end: "" },
     tasks: []
+  };
+}
+
+function exportTrip() {
+  const payload = {
+    app: "vacaciones-iphone",
+    version: 2,
+    exportedAt: new Date().toISOString(),
+    range: state.range,
+    tasks: state.tasks
+  };
+  const content = JSON.stringify(payload, null, 2);
+  const blob = new Blob([content], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `vacaciones-${state.range.start || "sin-fecha"}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function importTripFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    try {
+      const imported = JSON.parse(String(reader.result));
+      const nextState = normalizeImportedState(imported);
+
+      state.range = nextState.range;
+      state.tasks = nextState.tasks;
+      saveAndRender();
+      alert("Viaje cargado correctamente.");
+    } catch {
+      alert("No he podido cargar ese archivo. Revisa que sea un JSON exportado desde esta app.");
+    } finally {
+      tripFile.value = "";
+    }
+  });
+  reader.readAsText(file);
+}
+
+function normalizeImportedState(imported) {
+  const range = imported?.range;
+  const tasks = imported?.tasks;
+
+  if (!range?.start || !range?.end || !Array.isArray(tasks)) {
+    throw new Error("Invalid vacation file");
+  }
+
+  const start = String(range.start);
+  const end = String(range.end);
+  const nextRange = start <= end ? { start, end } : { start: end, end: start };
+
+  return {
+    range: nextRange,
+    tasks: tasks.map(normalizeTask).filter((task) => task.date >= nextRange.start && task.date <= nextRange.end)
   };
 }
 
@@ -197,13 +278,31 @@ function renderSummary(days) {
 }
 
 function renderCalendar(days) {
+  setCalendarSizing();
   calendarGrid.innerHTML = "";
-  calendarGrid.style.gridTemplateColumns = `var(--time-width) repeat(${Math.max(days.length, 1)}, max-content)`;
+  calendarGrid.style.gridTemplateColumns = `var(--time-width) repeat(${Math.max(days.length, 1)}, var(--day-width))`;
   calendarGrid.appendChild(createTimeAxis());
 
   for (const day of days) {
     calendarGrid.appendChild(createDayColumn(day));
   }
+}
+
+function setCalendarSizing() {
+  const visibleDays = getVisibleDayCount();
+  const width = calendarScroll.clientWidth || window.innerWidth;
+  const availableWidth = Math.max(120, width - 48);
+  const dayWidth = Math.floor(availableWidth / visibleDays);
+
+  document.documentElement.style.setProperty("--day-width", `${dayWidth}px`);
+  document.querySelector("#visibleHint").textContent = visibleDays === 1 ? "1 día" : `${visibleDays} días`;
+}
+
+function getVisibleDayCount() {
+  const width = calendarScroll.clientWidth || window.innerWidth;
+  if (width >= 760) return 3;
+  if (width - 48 < 250) return 1;
+  return 2;
 }
 
 function prepareNewTask() {
