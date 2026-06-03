@@ -10,6 +10,7 @@
     <link rel="apple-touch-icon" href="./icon.svg">
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="stylesheet" href="./styles.css?v=4">
+    <link rel="stylesheet" href="./next.css?v=4">
   </head>
   <body>
     <main class="app-shell">
@@ -20,180 +21,33 @@
           <p class="trip-range" id="tripRange">Elige tus fechas</p>
         </div>
         <div class="top-actions">
-          <button class="icon-button" id="importTrip" type="button" aria-label="Cargar viaje" title="Cargar viaje">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg>
-          </button>
-          <button class="icon-button" id="exportTrip" type="button" aria-label="Guardar viaje" title="Guardar viaje">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9"/><path d="m7 16 5 5 5-5"/><path d="M5 3h14"/></svg>
-          </button>
-          <button class="icon-button" id="editDates" type="button" aria-label="Cambiar fechas" title="Cambiar fechas">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>
-          </button>
-          <button class="icon-button" id="resetBoard" type="button" aria-label="Reiniciar planes" title="Reiniciar planes">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.6-6.1L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.6 6.1L3 16"/><path d="M3 21v-5h5"/></svg>
-          </button>
+          <button class="icon-button" id="importTrip" type="button" aria-label="Cargar viaje" title="Cargar viaje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg></button>
+          <button class="icon-button" id="exportTrip" type="button" aria-label="Guardar viaje" title="Guardar viaje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9"/><path d="m7 16 5 5 5-5"/><path d="M5 3h14"/></svg></button>
+          <button class="icon-button" id="editDates" type="button" aria-label="Cambiar fechas" title="Cambiar fechas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg></button>
+          <button class="icon-button" id="resetBoard" type="button" aria-label="Reiniciar planes" title="Reiniciar planes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.6-6.1L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.6 6.1L3 16"/><path d="M3 21v-5h5"/></svg></button>
         </div>
         <input class="file-input" id="tripFile" type="file" accept="application/json,.json">
       </header>
 
-      <section class="summary" aria-label="Resumen del viaje">
-        <div>
-          <span class="summary-label">Días</span>
-          <strong id="totalDays">0</strong>
-        </div>
-        <div>
-          <span class="summary-label">Horas</span>
-          <strong id="totalHours">0h</strong>
-        </div>
-        <div>
-          <span class="summary-label">Notas</span>
-          <strong id="totalCards">0</strong>
-        </div>
-      </section>
+      <section class="summary" aria-label="Resumen del viaje"><div><span class="summary-label">Días</span><strong id="totalDays">0</strong></div><div><span class="summary-label">Horas</span><strong id="totalHours">0h</strong></div><div><span class="summary-label">Notas</span><strong id="totalCards">0</strong></div></section>
 
-      <nav class="view-tabs" aria-label="Secciones">
-        <button class="tab-button is-active" type="button" data-view="agenda">Agenda</button>
-        <button class="tab-button" type="button" data-view="reservas">Reservas</button>
-        <button class="tab-button" type="button" data-view="maleta">Maleta</button>
-      </nav>
+      <nav class="view-tabs" aria-label="Secciones"><button class="tab-button is-active" type="button" data-view="agenda">Agenda</button><button class="tab-button" type="button" data-view="reservas">Reservas</button><button class="tab-button" type="button" data-view="maleta">Maleta</button></nav>
 
-      <button class="fab-button" id="openTaskForm" type="button" aria-label="Añadir nota" title="Añadir nota">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-      </button>
+      <button class="fab-button" id="openTaskForm" type="button" aria-label="Añadir nota" title="Añadir nota"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
 
-      <dialog class="sheet-dialog" id="taskDialog">
-      <form class="composer" id="taskForm" autocomplete="off">
-        <header class="form-header">
-          <div>
-            <p class="eyebrow">Nueva nota</p>
-            <h2>Plan para el día</h2>
-          </div>
-          <button class="icon-button" id="closeTaskForm" type="button" aria-label="Cerrar" title="Cerrar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </header>
-        <label class="field title-field">
-          <span>Plan</span>
-          <input id="taskTitle" name="title" type="text" placeholder="Ej. Baño al atardecer" maxlength="70" required>
-        </label>
+      <dialog class="sheet-dialog" id="taskDialog"><form class="composer" id="taskForm" autocomplete="off"><header class="form-header"><div><p class="eyebrow">Nueva nota</p><h2>Plan para el día</h2></div><button class="icon-button" id="closeTaskForm" type="button" aria-label="Cerrar" title="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></header><label class="field title-field"><span>Plan</span><input id="taskTitle" name="title" type="text" placeholder="Ej. Baño al atardecer" maxlength="70" required></label><div class="control-row"><label class="field"><span>Día</span><select id="taskDate" name="date" required></select></label><label class="field"><span>Hora</span><select id="taskStart" name="start" required></select></label></div><div class="control-row"><fieldset class="segmented duration-options" aria-label="Duración"><legend>Duración</legend><label><input type="radio" name="duration" value="1" checked><span>1h</span></label><label><input type="radio" name="duration" value="2"><span>2h</span></label><label><input type="radio" name="duration" value="3"><span>3h</span></label><label><input type="radio" name="duration" value="4"><span>4h</span></label></fieldset><label class="field color-field"><span>Color</span><input id="taskColor" name="color" type="color" value="#ffd8c8"></label></div><button class="primary-button" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Añadir nota</button></form></dialog>
 
-        <div class="control-row">
-          <label class="field">
-            <span>Día</span>
-            <select id="taskDate" name="date" required></select>
-          </label>
-          <label class="field">
-            <span>Hora</span>
-            <select id="taskStart" name="start" required></select>
-          </label>
-        </div>
+      <section class="calendar-card view-panel is-active" data-panel="agenda" aria-label="Calendario de vacaciones"><div class="calendar-toolbar"><div><h2>Calendario</h2><p>Desliza día a día</p></div><span id="visibleHint">Días completos</span></div><div class="calendar-scroll" id="calendarScroll"><div class="calendar-grid" id="calendarGrid"></div></div></section>
 
-        <div class="control-row">
-          <fieldset class="segmented duration-options" aria-label="Duración">
-            <legend>Duración</legend>
-            <label><input type="radio" name="duration" value="1" checked><span>1h</span></label>
-            <label><input type="radio" name="duration" value="2"><span>2h</span></label>
-            <label><input type="radio" name="duration" value="3"><span>3h</span></label>
-            <label><input type="radio" name="duration" value="4"><span>4h</span></label>
-          </fieldset>
+      <section class="utility-card view-panel" data-panel="reservas" aria-label="Reservas"><div class="section-heading"><div><h2>Reservas</h2><p>Vuelos, hoteles, restaurantes y entradas</p></div><span id="bookingCount">0</span></div><form class="compact-form" id="bookingForm" autocomplete="off"><label class="field"><span>Reserva</span><input id="bookingTitle" type="text" placeholder="Ej. Hotel, vuelo, cena..." maxlength="80" required></label><div class="control-row"><label class="field"><span>Día</span><select id="bookingDate"></select></label><label class="field"><span>Hora</span><input id="bookingTime" type="time"></label></div><label class="field"><span>Referencia</span><input id="bookingCode" type="text" placeholder="Código, dirección o enlace" maxlength="120"></label><button class="primary-button" type="submit">Añadir reserva</button></form><div class="simple-list" id="bookingList"></div></section>
 
-          <label class="field color-field">
-            <span>Color</span>
-            <input id="taskColor" name="color" type="color" value="#ffd8c8">
-          </label>
-        </div>
-
-        <button class="primary-button" type="submit">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          Añadir nota
-        </button>
-      </form>
-      </dialog>
-
-      <section class="calendar-card view-panel is-active" data-panel="agenda" aria-label="Calendario de vacaciones">
-        <div class="calendar-toolbar">
-          <div>
-            <h2>Calendario</h2>
-            <p>Desliza día a día</p>
-          </div>
-          <span id="visibleHint">Días completos</span>
-        </div>
-        <div class="calendar-scroll" id="calendarScroll">
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
-      </section>
-
-      <section class="utility-card view-panel" data-panel="reservas" aria-label="Reservas">
-        <div class="section-heading">
-          <div>
-            <h2>Reservas</h2>
-            <p>Vuelos, hoteles, restaurantes y entradas</p>
-          </div>
-          <span id="bookingCount">0</span>
-        </div>
-        <form class="compact-form" id="bookingForm" autocomplete="off">
-          <label class="field"><span>Reserva</span><input id="bookingTitle" type="text" placeholder="Ej. Hotel, vuelo, cena..." maxlength="80" required></label>
-          <div class="control-row">
-            <label class="field"><span>Día</span><select id="bookingDate"></select></label>
-            <label class="field"><span>Hora</span><input id="bookingTime" type="time"></label>
-          </div>
-          <label class="field"><span>Referencia</span><input id="bookingCode" type="text" placeholder="Código, dirección o enlace" maxlength="120"></label>
-          <button class="primary-button" type="submit">Añadir reserva</button>
-        </form>
-        <div class="simple-list" id="bookingList"></div>
-      </section>
-
-      <section class="utility-card view-panel" data-panel="maleta" aria-label="Maleta">
-        <div class="section-heading">
-          <div>
-            <h2>Maleta</h2>
-            <p>Lo que falta y lo que ya está dentro</p>
-          </div>
-          <span id="packingProgress">0/0</span>
-        </div>
-        <form class="compact-form" id="packingForm" autocomplete="off">
-          <label class="field"><span>Artículo</span><input id="packingTitle" type="text" placeholder="Ej. Cargador, bañador, pasaporte" maxlength="70" required></label>
-          <label class="field"><span>Tipo</span><select id="packingCategory"><option value="Ropa">Ropa</option><option value="Aseo">Aseo</option><option value="Documentos">Documentos</option><option value="Tecnología">Tecnología</option><option value="Otros">Otros</option></select></label>
-          <button class="primary-button" type="submit">Añadir a maleta</button>
-        </form>
-        <div class="simple-list" id="packingList"></div>
-      </section>
+      <section class="utility-card view-panel" data-panel="maleta" aria-label="Maleta"><div class="section-heading"><div><h2>Maleta</h2><p>Lo que falta y lo que ya está dentro</p></div><span id="packingProgress">0/0</span></div><form class="compact-form" id="packingForm" autocomplete="off"><label class="field"><span>Artículo</span><input id="packingTitle" type="text" placeholder="Ej. Cargador, bañador, pasaporte" maxlength="70" required></label><label class="field"><span>Tipo</span><select id="packingCategory"><option value="Ropa">Ropa</option><option value="Aseo">Aseo</option><option value="Documentos">Documentos</option><option value="Tecnología">Tecnología</option><option value="Otros">Otros</option></select></label><button class="primary-button" type="submit">Añadir a maleta</button></form><div class="simple-list" id="packingList"></div></section>
     </main>
 
-    <dialog class="date-dialog" id="dateDialog">
-      <form id="dateForm">
-        <header><div><p class="eyebrow">Primero</p><h2>¿Cuándo te vas?</h2></div></header>
-        <div class="control-row">
-          <label class="field"><span>Desde</span><input id="startDate" type="date" required></label>
-          <label class="field"><span>Hasta</span><input id="endDate" type="date" required></label>
-        </div>
-        <button class="primary-button" type="submit">Crear calendario</button>
-      </form>
-    </dialog>
+    <dialog class="date-dialog" id="dateDialog"><form id="dateForm"><header><div><p class="eyebrow">Primero</p><h2>¿Cuándo te vas?</h2></div></header><div class="control-row"><label class="field"><span>Desde</span><input id="startDate" type="date" required></label><label class="field"><span>Hasta</span><input id="endDate" type="date" required></label></div><button class="primary-button" type="submit">Crear calendario</button></form></dialog>
 
-    <dialog class="edit-dialog" id="editDialog">
-      <form id="editForm">
-        <header>
-          <h2>Editar nota</h2>
-          <button class="icon-button" value="cancel" type="button" id="closeEdit" aria-label="Cerrar" title="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-        </header>
-        <label class="field"><span>Plan</span><input id="editTitle" type="text" maxlength="70" required></label>
-        <div class="control-row">
-          <label class="field"><span>Día</span><select id="editDate" required></select></label>
-          <label class="field"><span>Hora</span><select id="editStart" required></select></label>
-        </div>
-        <fieldset class="segmented duration-options" aria-label="Duración editada">
-          <legend>Duración</legend>
-          <label><input type="radio" name="editDuration" value="1"><span>1h</span></label>
-          <label><input type="radio" name="editDuration" value="2"><span>2h</span></label>
-          <label><input type="radio" name="editDuration" value="3"><span>3h</span></label>
-          <label><input type="radio" name="editDuration" value="4"><span>4h</span></label>
-        </fieldset>
-        <label class="field color-field"><span>Color</span><input id="editColor" type="color" value="#ffd8c8"></label>
-        <div class="dialog-actions"><button class="danger-button" id="deleteEdit" type="button">Eliminar</button><button class="primary-button" type="submit">Guardar</button></div>
-      </form>
-    </dialog>
+    <dialog class="edit-dialog" id="editDialog"><form id="editForm"><header><h2>Editar nota</h2><button class="icon-button" value="cancel" type="button" id="closeEdit" aria-label="Cerrar" title="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></header><label class="field"><span>Plan</span><input id="editTitle" type="text" maxlength="70" required></label><div class="control-row"><label class="field"><span>Día</span><select id="editDate" required></select></label><label class="field"><span>Hora</span><select id="editStart" required></select></label></div><fieldset class="segmented duration-options" aria-label="Duración editada"><legend>Duración</legend><label><input type="radio" name="editDuration" value="1"><span>1h</span></label><label><input type="radio" name="editDuration" value="2"><span>2h</span></label><label><input type="radio" name="editDuration" value="3"><span>3h</span></label><label><input type="radio" name="editDuration" value="4"><span>4h</span></label></fieldset><label class="field color-field"><span>Color</span><input id="editColor" type="color" value="#ffd8c8"></label><div class="dialog-actions"><button class="danger-button" id="deleteEdit" type="button">Eliminar</button><button class="primary-button" type="submit">Guardar</button></div></form></dialog>
 
-    <script src="./app.js?v=4"></script>
+    <script src="./app-next.js?v=4"></script>
   </body>
 </html>
