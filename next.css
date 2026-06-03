@@ -1,0 +1,145 @@
+.view-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 248, 0.72);
+}
+
+.tab-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.tab-button.is-active {
+  background: #fffdfb;
+  color: var(--ink);
+  box-shadow: 0 8px 18px rgba(84, 63, 73, 0.1);
+}
+
+.view-panel {
+  display: none;
+}
+
+.view-panel.is-active {
+  display: block;
+}
+
+.utility-card {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 76px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 248, 0.9);
+  box-shadow: var(--shadow);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section-heading h2 {
+  font-size: 1rem;
+}
+
+.section-heading p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.section-heading span {
+  display: grid;
+  min-width: 42px;
+  height: 34px;
+  place-items: center;
+  border-radius: 8px;
+  background: #fffdfb;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.compact-form {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.simple-list {
+  display: grid;
+  gap: 8px;
+}
+
+.list-item {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdfb;
+  box-shadow: 0 8px 18px rgba(84, 63, 73, 0.08);
+}
+
+.list-item header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.list-item strong {
+  overflow-wrap: anywhere;
+}
+
+.list-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.list-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.small-button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff7ef;
+  color: var(--ink);
+  font-weight: 850;
+  padding: 0 10px;
+}
+
+.packing-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.packing-check input {
+  width: 22px;
+  min-height: 22px;
+}
+
+.packing-check.is-packed strong {
+  color: var(--muted);
+  text-decoration: line-through;
+}
