@@ -1,0 +1,33 @@
+.calendar-card.view-panel:not(.is-active),
+.utility-card.view-panel:not(.is-active) {
+  display: none;
+}
+
+.utility-card.view-panel.is-active {
+  display: grid;
+}
+
+.duration-picker {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.duration-picker .duration-more {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 6px;
+}
+
+.duration-picker .duration-more > span {
+  display: block;
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.duration-picker .duration-more select {
+  min-height: 44px;
+}
