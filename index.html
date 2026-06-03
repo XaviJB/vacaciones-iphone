@@ -7,8 +7,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Vacaciones">
     <title>Vacaciones</title>
+    <link rel="apple-touch-icon" href="./icon.svg">
     <link rel="manifest" href="./manifest.webmanifest">
-    <link rel="stylesheet" href="./styles.css?v=3">
+    <link rel="stylesheet" href="./styles.css?v=4">
   </head>
   <body>
     <main class="app-shell">
@@ -50,6 +51,12 @@
         </div>
       </section>
 
+      <nav class="view-tabs" aria-label="Secciones">
+        <button class="tab-button is-active" type="button" data-view="agenda">Agenda</button>
+        <button class="tab-button" type="button" data-view="reservas">Reservas</button>
+        <button class="tab-button" type="button" data-view="maleta">Maleta</button>
+      </nav>
+
       <button class="fab-button" id="openTaskForm" type="button" aria-label="Añadir nota" title="Añadir nota">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
       </button>
@@ -84,22 +91,10 @@
         <div class="control-row">
           <fieldset class="segmented duration-options" aria-label="Duración">
             <legend>Duración</legend>
-            <label>
-              <input type="radio" name="duration" value="1" checked>
-              <span>1h</span>
-            </label>
-            <label>
-              <input type="radio" name="duration" value="2">
-              <span>2h</span>
-            </label>
-            <label>
-              <input type="radio" name="duration" value="3">
-              <span>3h</span>
-            </label>
-            <label>
-              <input type="radio" name="duration" value="4">
-              <span>4h</span>
-            </label>
+            <label><input type="radio" name="duration" value="1" checked><span>1h</span></label>
+            <label><input type="radio" name="duration" value="2"><span>2h</span></label>
+            <label><input type="radio" name="duration" value="3"><span>3h</span></label>
+            <label><input type="radio" name="duration" value="4"><span>4h</span></label>
           </fieldset>
 
           <label class="field color-field">
@@ -115,7 +110,7 @@
       </form>
       </dialog>
 
-      <section class="calendar-card" aria-label="Calendario de vacaciones">
+      <section class="calendar-card view-panel is-active" data-panel="agenda" aria-label="Calendario de vacaciones">
         <div class="calendar-toolbar">
           <div>
             <h2>Calendario</h2>
@@ -127,25 +122,50 @@
           <div class="calendar-grid" id="calendarGrid"></div>
         </div>
       </section>
+
+      <section class="utility-card view-panel" data-panel="reservas" aria-label="Reservas">
+        <div class="section-heading">
+          <div>
+            <h2>Reservas</h2>
+            <p>Vuelos, hoteles, restaurantes y entradas</p>
+          </div>
+          <span id="bookingCount">0</span>
+        </div>
+        <form class="compact-form" id="bookingForm" autocomplete="off">
+          <label class="field"><span>Reserva</span><input id="bookingTitle" type="text" placeholder="Ej. Hotel, vuelo, cena..." maxlength="80" required></label>
+          <div class="control-row">
+            <label class="field"><span>Día</span><select id="bookingDate"></select></label>
+            <label class="field"><span>Hora</span><input id="bookingTime" type="time"></label>
+          </div>
+          <label class="field"><span>Referencia</span><input id="bookingCode" type="text" placeholder="Código, dirección o enlace" maxlength="120"></label>
+          <button class="primary-button" type="submit">Añadir reserva</button>
+        </form>
+        <div class="simple-list" id="bookingList"></div>
+      </section>
+
+      <section class="utility-card view-panel" data-panel="maleta" aria-label="Maleta">
+        <div class="section-heading">
+          <div>
+            <h2>Maleta</h2>
+            <p>Lo que falta y lo que ya está dentro</p>
+          </div>
+          <span id="packingProgress">0/0</span>
+        </div>
+        <form class="compact-form" id="packingForm" autocomplete="off">
+          <label class="field"><span>Artículo</span><input id="packingTitle" type="text" placeholder="Ej. Cargador, bañador, pasaporte" maxlength="70" required></label>
+          <label class="field"><span>Tipo</span><select id="packingCategory"><option value="Ropa">Ropa</option><option value="Aseo">Aseo</option><option value="Documentos">Documentos</option><option value="Tecnología">Tecnología</option><option value="Otros">Otros</option></select></label>
+          <button class="primary-button" type="submit">Añadir a maleta</button>
+        </form>
+        <div class="simple-list" id="packingList"></div>
+      </section>
     </main>
 
     <dialog class="date-dialog" id="dateDialog">
       <form id="dateForm">
-        <header>
-          <div>
-            <p class="eyebrow">Primero</p>
-            <h2>¿Cuándo te vas?</h2>
-          </div>
-        </header>
+        <header><div><p class="eyebrow">Primero</p><h2>¿Cuándo te vas?</h2></div></header>
         <div class="control-row">
-          <label class="field">
-            <span>Desde</span>
-            <input id="startDate" type="date" required>
-          </label>
-          <label class="field">
-            <span>Hasta</span>
-            <input id="endDate" type="date" required>
-          </label>
+          <label class="field"><span>Desde</span><input id="startDate" type="date" required></label>
+          <label class="field"><span>Hasta</span><input id="endDate" type="date" required></label>
         </div>
         <button class="primary-button" type="submit">Crear calendario</button>
       </form>
@@ -155,54 +175,25 @@
       <form id="editForm">
         <header>
           <h2>Editar nota</h2>
-          <button class="icon-button" value="cancel" type="button" id="closeEdit" aria-label="Cerrar" title="Cerrar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
+          <button class="icon-button" value="cancel" type="button" id="closeEdit" aria-label="Cerrar" title="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
         </header>
-        <label class="field">
-          <span>Plan</span>
-          <input id="editTitle" type="text" maxlength="70" required>
-        </label>
+        <label class="field"><span>Plan</span><input id="editTitle" type="text" maxlength="70" required></label>
         <div class="control-row">
-          <label class="field">
-            <span>Día</span>
-            <select id="editDate" required></select>
-          </label>
-          <label class="field">
-            <span>Hora</span>
-            <select id="editStart" required></select>
-          </label>
+          <label class="field"><span>Día</span><select id="editDate" required></select></label>
+          <label class="field"><span>Hora</span><select id="editStart" required></select></label>
         </div>
         <fieldset class="segmented duration-options" aria-label="Duración editada">
           <legend>Duración</legend>
-          <label>
-            <input type="radio" name="editDuration" value="1">
-            <span>1h</span>
-          </label>
-          <label>
-            <input type="radio" name="editDuration" value="2">
-            <span>2h</span>
-          </label>
-          <label>
-            <input type="radio" name="editDuration" value="3">
-            <span>3h</span>
-          </label>
-          <label>
-            <input type="radio" name="editDuration" value="4">
-            <span>4h</span>
-          </label>
+          <label><input type="radio" name="editDuration" value="1"><span>1h</span></label>
+          <label><input type="radio" name="editDuration" value="2"><span>2h</span></label>
+          <label><input type="radio" name="editDuration" value="3"><span>3h</span></label>
+          <label><input type="radio" name="editDuration" value="4"><span>4h</span></label>
         </fieldset>
-        <label class="field color-field">
-          <span>Color</span>
-          <input id="editColor" type="color" value="#ffd8c8">
-        </label>
-        <div class="dialog-actions">
-          <button class="danger-button" id="deleteEdit" type="button">Eliminar</button>
-          <button class="primary-button" type="submit">Guardar</button>
-        </div>
+        <label class="field color-field"><span>Color</span><input id="editColor" type="color" value="#ffd8c8"></label>
+        <div class="dialog-actions"><button class="danger-button" id="deleteEdit" type="button">Eliminar</button><button class="primary-button" type="submit">Guardar</button></div>
       </form>
     </dialog>
 
-    <script src="./app.js?v=3"></script>
+    <script src="./app.js?v=4"></script>
   </body>
 </html>
