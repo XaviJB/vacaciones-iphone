@@ -11,6 +11,7 @@
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="stylesheet" href="./styles.css?v=4">
     <link rel="stylesheet" href="./next.css?v=4">
+    <link rel="stylesheet" href="./hotfix-v6.css?v=6">
   </head>
   <body>
     <main class="app-shell">
@@ -49,5 +50,6 @@
     <dialog class="edit-dialog" id="editDialog"><form id="editForm"><header><h2>Editar nota</h2><button class="icon-button" value="cancel" type="button" id="closeEdit" aria-label="Cerrar" title="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></header><label class="field"><span>Plan</span><input id="editTitle" type="text" maxlength="70" required></label><div class="control-row"><label class="field"><span>Día</span><select id="editDate" required></select></label><label class="field"><span>Hora</span><select id="editStart" required></select></label></div><fieldset class="segmented duration-options" aria-label="Duración editada"><legend>Duración</legend><label><input type="radio" name="editDuration" value="1"><span>1h</span></label><label><input type="radio" name="editDuration" value="2"><span>2h</span></label><label><input type="radio" name="editDuration" value="3"><span>3h</span></label><label><input type="radio" name="editDuration" value="4"><span>4h</span></label></fieldset><label class="field color-field"><span>Color</span><input id="editColor" type="color" value="#ffd8c8"></label><div class="dialog-actions"><button class="danger-button" id="deleteEdit" type="button">Eliminar</button><button class="primary-button" type="submit">Guardar</button></div></form></dialog>
 
     <script src="./app-next.js?v=4"></script>
+    <script src="./hotfix-v6.js?v=6"></script>
   </body>
 </html>
